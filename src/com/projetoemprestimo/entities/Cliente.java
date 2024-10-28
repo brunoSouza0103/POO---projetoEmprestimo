@@ -1,29 +1,27 @@
 package com.projetoemprestimo.entities;
 
+import java.util.ArrayList;
+import java.util.Scanner;
+
 public class Cliente {
-    private int idCliente;
+    static Scanner read = new Scanner(System.in);
+
+    /* atributos referentes a classe cliente */
     private String nome;
     private String email;
     private String cpf;
 
+    /* construtores */
     public Cliente() {
     }
 
-    public Cliente(int idCliente, String nome, String email, String cpf) {
-        this.idCliente = idCliente;
+    public Cliente(String nome, String email, String cpf) {
         this.nome = nome;
         this.email = email;
         this.cpf = cpf;
     }
 
-    public int getIdCliente() {
-        return idCliente;
-    }
-
-    public void setIdCliente(int idCliente) {
-        this.idCliente = idCliente;
-    }
-
+    /* getters e setters */
     public String getNome() {
         return nome;
     }
@@ -46,5 +44,24 @@ public class Cliente {
 
     public void setCpf(String cpf) {
         this.cpf = cpf;
+    }
+
+    /* Funções */
+    public ArrayList<Cliente> cadastrarCliente(ArrayList<Cliente> clientes){
+        Cliente c = new Cliente();
+        System.out.println("Nome do cliente: ");
+        String nome = read.nextLine();
+        c.setNome(nome);
+
+        System.out.println("Email do cliente: ");
+        String email = read.nextLine();
+        c.setEmail(email);
+
+        System.out.println("Cpf do cliente: ");
+        String cpf = read.nextLine();
+        c.setCpf(cpf);
+        clientes.add(c);
+
+        return clientes;
     }
 }
