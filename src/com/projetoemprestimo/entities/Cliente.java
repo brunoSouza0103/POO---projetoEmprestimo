@@ -1,7 +1,10 @@
 package com.projetoemprestimo.entities;
 
+import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Cliente {
     static Scanner read = new Scanner(System.in);
@@ -47,20 +50,38 @@ public class Cliente {
     }
 
     /* Funções */
+    public boolean validarEmail(String email){
+        Pattern pattern = Pattern.compile("^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$");
+        Matcher matcher = pattern.matcher(email);
+        return matcher.matches();
+    }
+
+    public boolean validarCpf(String cpf){
+        Pattern pattern = Pattern.compile("^\\d{3}\\.\\d{3}\\.\\d{3}-\\d{2}$");
+        Matcher matcher = pattern.matcher(cpf);
+        return matcher.matches();
+    }
+
     public ArrayList<Cliente> cadastrarCliente(ArrayList<Cliente> clientes){
         Cliente c = new Cliente();
+        String email, cpf;
         System.out.println("Nome do cliente: ");
         String nome = read.nextLine();
         c.setNome(nome);
 
-        System.out.println("Email do cliente: ");
-        String email = read.nextLine();
-        c.setEmail(email);
+        do {
+            System.out.println("Email do cliente: (exemplo: ####@#####.###)");
+            email = read.nextLine();
+        }while(!validarEmail(email));
+        do {
+            System.out.println("Cpf do cliente: (exemplo: ###.###.###-##)");
+            cpf = read.nextLine();
+        }while(!validarCpf(cpf));
 
-        System.out.println("Cpf do cliente: ");
-        String cpf = read.nextLine();
+        c.setEmail(email);
         c.setCpf(cpf);
         clientes.add(c);
+        System.out.println("Cliente cadastrado com sucesso!");
 
         return clientes;
     }

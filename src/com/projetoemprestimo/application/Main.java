@@ -26,22 +26,14 @@ public class Main {
         ArrayList<Emprestimo> emprestimos = new ArrayList<>();
 
         /*execução do programa*/
-        int menu;
-        do {
+        int menu = 1;
+        while (menu != 0){
             telaInicial();
             menu = read.nextInt();
             switch(menu){
                 case 1:
                     clientes = c.cadastrarCliente(clientes);
 
-                    System.out.println("Lista de clientes: ");
-                    /* teste do cadastro */
-                    for (int i = 0; i < clientes.size(); i++){
-                        System.out.println("Cliente " + (i + 1) + " : ");
-                        System.out.println("Nome: " + clientes.get(i).getNome());
-                        System.out.println("Email: " + clientes.get(i).getEmail());
-                        System.out.println("Cpf: " + clientes.get(i).getCpf());
-                    }
                     break;
                 case 2:
                     livros = l.cadastrarLivro(livros);
@@ -65,12 +57,12 @@ public class Main {
                     }
                     break;
                 case 4:
-                    //emprestar livro
+                    emprestimos = e.emprestarLivro(livros, emprestimos);
                     break;
                 default:
                     System.out.println("Digite uma opção válida!");
                     break;
             }
-        } while(menu != 0);
+        };
     }
 }
