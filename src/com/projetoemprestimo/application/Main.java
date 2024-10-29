@@ -9,7 +9,7 @@ import java.util.Scanner;
 
 public class Main {
     public static void telaInicial(){
-        System.out.println("BEM VINDO Á BIBLIOTECA \n1.Cadastrar novo cliente \n2.Cadastrar novo livro \n3.Listar livros \n4.Emprestar livro \n0. Sair");
+        System.out.println("BEM VINDO Á BIBLIOTECA \n1.Cadastrar novo cliente \n2.Cadastrar novo livro \n3.Listar livros \n4.Emprestar livro \n5.Devolver livro \n0. Sair");
     }
 
     public static void main(String[] args) {
@@ -31,6 +31,9 @@ public class Main {
             telaInicial();
             menu = read.nextInt();
             switch(menu){
+                case 0:
+                    System.out.println("Saindo...");
+                    break;
                 case 1:
                     clientes = c.cadastrarCliente(clientes);
 
@@ -39,7 +42,7 @@ public class Main {
                     livros = l.cadastrarLivro(livros);
                     break;
                 case 3:
-                    System.out.println("1. Listar todos os livros. \n2. Listar livros disponíveis. \n3. Voltar ao menu.");
+                    System.out.println("1. Listar todos os livros. \n2. Listar livros disponíveis. \n3. Listar livros emprestados \n4. Voltar ao menu.");
                     menu = read.nextInt();
                     switch(menu){
                         case 1:
@@ -49,6 +52,9 @@ public class Main {
                             l.listarDisponiveis(livros);
                             break;
                         case 3:
+                            l.listarEmprestados(emprestimos, livros);
+                            break;
+                        case 4:
                             System.out.println("Voltando ao menu...");
                             break;
                         default:
@@ -59,10 +65,13 @@ public class Main {
                 case 4:
                     emprestimos = e.emprestarLivro(livros, emprestimos);
                     break;
+                case 5:
+                    emprestimos = e.devolverLivro(livros, emprestimos);
+                    break;
                 default:
                     System.out.println("Digite uma opção válida!");
                     break;
             }
-        };
+        }
     }
 }

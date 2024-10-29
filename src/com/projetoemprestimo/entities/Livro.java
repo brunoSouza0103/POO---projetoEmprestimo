@@ -93,4 +93,21 @@ public class Livro {
             }
         }else System.out.println("Nenhum livro disponível!");
     }
+
+    public void listarEmprestados(ArrayList<Emprestimo> emprestimos, ArrayList<Livro> livros) {
+        boolean z = false;
+        for (Livro livro : livros) {
+            if (livro.getSituacao().equals("Emprestado")) {
+                z = true;
+                break;
+            }
+        }
+        if(z) {
+            System.out.println("LIVROS EMPRESTADOS:");
+            for (Emprestimo emprestimo : emprestimos) {
+                System.out.println("Nome do livro: " + emprestimo.getNomeLivro());
+                System.out.println("Nome do responsável: " + emprestimo.getNomeCliente());
+            }
+        }else System.out.println("Nenhum livro emprestado!");
+    }
 }

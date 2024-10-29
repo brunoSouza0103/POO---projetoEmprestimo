@@ -57,16 +57,47 @@ public class Emprestimo {
             System.out.println("Digite uma opção para emprestar:");
             option = (read.nextInt() - 1);
             System.out.println("Digite o nome do reponsável: ");
-            read.next();
-            nomeCliente = read.nextLine();
+            nomeCliente = read.next();
 
             livros.get(option).setSituacao("Emprestado");
             nomeLivro = livros.get(option).getNomeLivro();
-            Emprestimo e = new Emprestimo(nomeCliente, nomeLivro);
+            Emprestimo e = new Emprestimo();
+            e.setNomeLivro(nomeLivro);
+            e.setNomeCliente(nomeCliente);
             emprestimos.add(e);
 
-            System.out.println("Livro " + option + " emprestado com sucesso!");
+            System.out.println("Livro " + option + 1 + " emprestado com sucesso!");
         } else System.out.println("Nenhum livro disponível!");
+        return emprestimos;
+    }
+
+    public ArrayList devolverLivro(ArrayList<Livro> livros, ArrayList<Emprestimo> emprestimos){
+        boolean z = false;
+        for (Livro livro : livros) {
+            if (livro.getSituacao().equals("Emprestado")) {
+                z = true;
+                break;
+            }
+        }
+        if(z) {
+            System.out.println("LIVROS EMPRESTADOS:");
+            for (int i = 0; i < emprestimos.size(); i++) {
+                System.out.println((i+1) + ". ");
+                System.out.println("Nome do livro: " + emprestimos.get(i).getNomeLivro());
+                System.out.println("Nome do responsável: " + emprestimos.get(i).getNomeCliente());
+            }
+            System.out.println("Digite uma opção para devolver: ");
+            int option = (read.nextInt() - 1);
+            String nomeLivro = emprestimos.get(option).getNomeLivro();
+            emprestimos.remove(option);
+            System.out.println("Livro devolvido com sucesso!");
+
+            for (Livro livro : livros){
+                if(livro.getNomeLivro().equals(nomeLivro)){
+                    livro.setSituacao("Disponível");
+                }
+            }
+        }else System.out.println("Nenhum livro emprestado!");
         return emprestimos;
     }
 }
